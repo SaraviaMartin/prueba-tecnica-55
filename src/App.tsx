@@ -10,10 +10,10 @@ function App() {
   const [sortByCountry, setSortByCountry] = useState(false)
   
   const originalUsers = useRef<User[]>([])
-  //userREf -> para guardar un valor
-  //que queremos que se comparta entre renderizados
-  //pero que al cambiar, no vuelva a renderizar el componente
-
+  // useRef -> para guardar un valor
+  // que se va a compartir entre renderizados
+  // pero que al cambiar no vuelva a renderizar el componente
+  
   const toggleColors = () => {
     setShowColors(!showColors)
   }
@@ -37,7 +37,7 @@ function App() {
       .then(async res =>res.json())
       .then(res => {
         setUsers(res.results)
-        originalUsers.current = res.result   
+        originalUsers.current = res.results 
       })
       .catch(err => {
         console.log(err)
