@@ -1,12 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import {type User} from './types.d'
 import { UsersList } from './components/UsersList';
+
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [showColors, setShowColors] = useState(false)
   const [sortByCountry, setSortByCountry] = useState(false)
+  
+  const originalUsers = useRef<User[]>([])
+  //userREf -> para guardar un valor
+  //que queremos que se comparta entre renderizados
+  //pero que al cambiar, no vuelva a renderizar el componente
 
   const toggleColors = () => {
     setShowColors(!showColors)
@@ -14,6 +20,10 @@ function App() {
 
   const toggleSortByCountry = () => {
     setSortByCountry(prevState => !prevState)
+  }
+
+  const handleReset = () => {
+    setUsers(originalUsers.current)
   }
 
 
@@ -27,6 +37,7 @@ function App() {
       .then(async res =>res.json())
       .then(res => {
         setUsers(res.results)
+        originalUsers.current = res.result   
       })
       .catch(err => {
         console.log(err)
@@ -48,6 +59,10 @@ function App() {
 
         <button onClick={toggleSortByCountry}>
           {sortByCountry ? 'No ordenar por pais' : 'Ordenar Por Pais'}
+        </button>
+
+        <button onClick={handleReset}>
+          resetear estado
         </button>
       </header>
       <main>
