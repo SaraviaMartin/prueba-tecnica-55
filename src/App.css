@@ -13,3 +13,14 @@
   background-color: #555;
 }
 
+header {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 48px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointer {
+  cursor:  crosshair;
+}
